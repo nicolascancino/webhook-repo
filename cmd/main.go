@@ -2,12 +2,16 @@ package main
 
 import (
 	"github.com/joho/godotenv"
+	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	_ = godotenv.Load()
 	mux := http.NewServeMux()
 
-	_ = http.ListenAndServe(":8080", mux)
+	if err := http.ListenAndServe(":"+os.Getenv("PORT"), mux); err != nil {
+		log.Print(err)
+	}
 }
